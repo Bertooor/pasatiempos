@@ -1,0 +1,51 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.tablero {
+  text-align: center;
+}
+
+.tablero h1 {
+  padding: 1rem;
+}
+
+.tablero button {
+  margin-bottom: 1rem;
+}
+
+.tablero .juego {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.tablero .juego .casilla {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #eee;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+
+.tablero .turno {
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto;
+  gap: 10px;
+}
+
+.tablero .turno .fondoTurno {
+  background-color: blue;
+}
