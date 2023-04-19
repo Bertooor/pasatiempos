@@ -15,3 +15,7 @@ export const compruebaGanador = (compruebaTablero) => {
   // Si no hay ganador
   return null;
 };
+
+export const compruebaFinalJuego = (nuevoTablero) => {
+  return nuevoTablero.every((tablero) => tablero !== null);
+};
