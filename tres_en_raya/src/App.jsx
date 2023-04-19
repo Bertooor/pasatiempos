@@ -1,22 +1,12 @@
 import { useState } from "react";
 import "./App.css";
+
 import { Casilla } from "./Componentes/Casilla";
+import { TURNOS } from "./constantes";
+import { compruebaGanador } from "./utilidades";
 
-const TURNOS = {
-  x: "x",
-  o: "o",
-};
-
-const COMBINACIONES_GANADORAS = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-];
+// Librería para usar confetti
+import confetti from "canvas-confetti";
 
 function App() {
   // Estado con todas las casillas del tablero a null
@@ -25,22 +15,6 @@ function App() {
   const [turno, setTurno] = useState(TURNOS.x);
 
   const [ganador, setGanador] = useState(null);
-
-  const compruebaGanador = (compruebaTablero) => {
-    for (const combinacion of COMBINACIONES_GANADORAS) {
-      const [a, b, c] = combinacion;
-
-      if (
-        compruebaTablero[a] &&
-        compruebaTablero[a] === compruebaTablero[b] &&
-        compruebaTablero[a] === compruebaTablero[c]
-      )
-        // Devuelve el ganador si lo hay
-        return compruebaTablero[a];
-    }
-    // Si no hay ganador
-    return null;
-  };
 
   const reiniciaJuego = () => {
     setTablero(Array(9).fill(null));
@@ -66,6 +40,7 @@ function App() {
     const nuevoGanador = compruebaGanador(nuevoTablero);
 
     if (nuevoGanador) {
+      confetti();
       setGanador(nuevoGanador);
     } else if (compruebaFinalJuego(nuevoTablero)) {
       setGanador(false);
@@ -77,10 +52,10 @@ function App() {
       <button onClick={reiniciaJuego}>Empezar de nuevo</button>
 
       <section className="juego">
-        {tablero.map((_, index) => {
+        {tablero.map((casilla, index) => {
           return (
             <Casilla key={index} index={index} recargaTablero={recargaTablero}>
-              {tablero[index]}
+              {casilla}
             </Casilla>
           );
         })}
