@@ -13,7 +13,11 @@ export class PokemonService {
     this.url = URLS.API_URL;
   }
 
-  pokemons(id: string): Observable<any> {
+  pokemon(id: string): Observable<any> {
     return this._http.get(this.url + id);
+  }
+
+  pokemons(nPokemons: number): Observable<any> {
+    return this._http.get(this.url + '?limit=' + nPokemons + '&offset=0');
   }
 }

@@ -1,5 +1,22 @@
 <h1>Battlemon</h1>
-<h2>Elige tu Pokemon</h2>
+<h2>Elige a tu Equipo</h2>
 <ul>
-  <li *ngFor="let pokemon of aPokemons"></li>
+  <li
+    *ngFor="let pokemon of aPokemonsJugador"
+    class="tarjeta_basica"
+    (click)="seleccionarEquipo(pokemon.id)"
+  >
+    <h3>{{ pokemon.name }}</h3>
+    <img src="{{ pokemon.imgPokemon }}" alt="imagen de {{ pokemon.name }}" />
+  </li>
+</ul>
+
+<h2>Tu primer adversario</h2>
+<ul>
+  <li class="tarjeta_basica">
+    <h3>
+      {{ pokemonCpu.name }}
+      <img src="{{ imgPokemon }}" alt="imagen de {{ pokemonCpu.name }}" />
+    </h3>
+  </li>
 </ul>

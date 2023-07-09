@@ -1,0 +1,12 @@
+.tarjeta_basica {
+  display: inline-block;
+  border: 2px solid #1a437a;
+  margin: 2rem;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: rgba(112, 122, 134, 0.4) 5px 5px 5px;
+}
+
+.tarjeta_basica img {
+  height: 150px;
+}
