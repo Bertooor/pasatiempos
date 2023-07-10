@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PokemonService } from 'src/app/servicios/pokemon.service';
 import { URLS } from 'src/app/servicios/urls';
+import {
+  extraeIdPokemon,
+  idRandom,
+  desordenaArray,
+} from 'src/app/utilidades/utilidades';
 
 @Component({
   selector: 'app-principal',
@@ -32,20 +37,17 @@ export class PrincipalComponent implements OnInit {
         this.aPokemons = resultado.results;
         console.log('aPokemons: ', resultado.results);
 
-        this.aPokemonsJugador = this.desordenaArray(this.aPokemons).slice(
-          0,
-          10
-        );
+        this.aPokemonsJugador = desordenaArray(this.aPokemons).slice(0, 10);
         console.log('aPokemonsJugador: ', this.aPokemonsJugador);
 
         for (let pokemon of this.aPokemonsJugador) {
-          pokemon.id = this.extraeIdPokemon(pokemon.url);
+          pokemon.id = extraeIdPokemon(pokemon.url);
           pokemon.imgPokemon = URLS.URL_IMAGES + pokemon.id + '.png';
         }
 
-        this.pokemonCpu = resultado.results[this.idRandom()];
+        this.pokemonCpu = resultado.results[idRandom()];
         console.log('pokemonCpu: ', this.pokemonCpu);
-        this.pokemonCpuId = this.extraeIdPokemon(this.pokemonCpu.url);
+        this.pokemonCpuId = extraeIdPokemon(this.pokemonCpu.url);
         console.log('pokemonCpuId: ', this.pokemonCpuId);
 
         this.imgPokemon = URLS.URL_IMAGES + this.pokemonCpuId + '.png';
@@ -59,19 +61,6 @@ export class PrincipalComponent implements OnInit {
     });
   }
 
-  idRandom(): string {
-    return Math.floor(Math.random() * 1010 + 1).toString();
-  }
-
-  desordenaArray(arr: any) {
-    return arr.sort(() => Math.random() - 0.5);
-  }
-
-  extraeIdPokemon(url: string): string {
-    let id: string = url.slice(34, -1);
-    return id;
-  }
-
   seleccionarEquipo(id: string): void {
     if (this.aEquipoJugador.length < 3) {
       this.aEquipoJugador.push(id);
@@ -79,7 +68,11 @@ export class PrincipalComponent implements OnInit {
     console.log('aEquipoJugador: ', this.aEquipoJugador);
 
     if (this.aEquipoJugador.length === 3) {
-      this._router.navigate(['/equipo']);
+      // Convertimos el array en string para poder enviarlo como parametro
+      const pokemonsParam = JSON.stringify(this.aEquipoJugador);
+      this._router.navigate(['/equipo'], {
+        queryParams: { aEquipoJugador: pokemonsParam },
+      });
     }
   }
 }

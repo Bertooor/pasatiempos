@@ -1,1 +1,12 @@
-<p>equipo works!</p>
+<button routerLink="/home">atrás</button>
+
+<ul>
+  <li *ngFor="let pokemon of pokemonsEquipoJugador">
+    <h3>
+      {{ pokemon.name }}
+    </h3>
+    <img src="{{ pokemon.imgPokemon }}" alt="imagen de {{ pokemon.name }}" />
+  </li>
+</ul>
+
+<button>Batalla</button>
